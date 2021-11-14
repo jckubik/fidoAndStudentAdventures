@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # }
 
 if 'DATABASE_URL' in os.environ:
-    DATABASESES = {'default': dj_database_url}
+    DATABASES = {'default': dj_database_url}
 else:
     # Heroku local machine
     DATABASES = {
