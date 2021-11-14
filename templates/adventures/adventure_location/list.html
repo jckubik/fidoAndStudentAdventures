@@ -1,0 +1,65 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Adventures{% endblock %}
+
+<!-- Add content for the search feature section -->
+{% block search-features %}
+
+            <a href="{% url 'adventures:adventure_location_list' %}">Back</a>
+            <h2 class="hide">Find an Adventure</h2>
+
+            <!-- Form to search by location name -->
+            <form id="search" action="" data-ajax-url="{% url 'adventures:adventure_location_list' %}" method="GET">
+              <input type="submit" name="submit" value="Search">
+              <input type="search" id="searchQueryString" name="search" placeholder="Find Adventures">
+            </form>
+
+            <!-- Section for Filter and add location -->
+            <div id="search-filter">
+
+                <!-- Display only if user logged in -->
+                {% if request.session.username %}
+                    <a href="{% url 'adventures:adventure_creator' %}">Add Adventure</a>
+                {% endif %}
+
+                <!-- Form to sort item in List View -->
+                <form id="listViewSortByForm" action="" method="GET">
+                    {% csrf_token %}
+                  <label for="listViewSortBy">Sort by:</label>
+                  <select name="listViewSortBy" id="listViewSortByList" data-ajax-url="
+{% url 'adventures:adventure_location_list' %}">
+                    <option value="name">Name A-Z</option>
+                    <option value="-name">Name Z-A</option>
+                    <option value="-rating">Rating High-Low</option>
+                  </select>
+                </form>
+
+            </div>
+
+{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <div id="results">
+
+    <!-- Check to see if there are items in the DB to show -->
+        {% if adventure_locations.count == 0 %}
+
+            <!-- Show empty message if not -->
+            <div id="empty-DB-notice-div">
+                <p id="empty-DB-notice">
+                    There are no Adventure locations right now. Please check back later.
+                </p>
+            </div>
+
+        {% else %}
+
+            <!-- Template that handles location generation -->
+            {% include 'adventures/adventure_location/locations_results.html' %}
+
+        {% endif %}
+    </div>
+
+{% endblock %}

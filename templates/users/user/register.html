@@ -1,0 +1,48 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Sign Up User{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+          <h2>Sign Up</h2>
+
+          <!-- Form to collect the adventure data -->
+          <form id="registerUser" action="{% url 'users:register' %}" method="POST">
+            {% csrf_token %}
+            <!-- Upper Form Section -->
+            <div id="upper-form-section">
+
+              <!-- Hold Option Buttons -->
+              <div id="option-buttons">
+                <button type="submit" name="submit">Sign Up</button>
+              </div>
+
+              <!-- Hold Main Item Forms-->
+                <p>* = required </p>
+              <div id="main-items-div">
+
+                    <div>
+                      <label for="registerUsername">Username*</label>
+                      <input type="text" id ="registerUsername" name="username" placeholder="Username"
+                             required>
+                    </div>
+
+                  <div>
+                        <label for="registerEmail">Email*</label>
+                        <input type="email" name="email" placeholder="Email" required>
+                  </div>
+
+                  <div>
+                        <label for="registerPassword">Password*</label>
+                        <input type="password" id="registerPassword" name="password" placeholder="Password" required>
+                  </div>
+
+
+
+              </div><!-- End main items div -->
+            </div> <!-- End upper form section div -->
+          </form>
+
+{% endblock %}

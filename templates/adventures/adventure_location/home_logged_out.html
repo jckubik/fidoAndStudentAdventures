@@ -1,0 +1,43 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Logged Out{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+        <!-- The Call-to-Action Section-->
+        <div id ="callToAction">
+          <h2>Start Adventuring Today</h2>
+
+          <img src="{% static "media/outdoors.jpeg" %}" alt="the outdoors"> <!-- https://www.google.com/url?sa=i&url=http%3A%2F%2Fwhittleaway.co.uk%2Finto-the-woods-a-guide-to-the-outdoors-for-the-non-outdoorsy%2F&psig=AOvVaw0MNVrz_u3xYyrMIvFPQHW7&ust=1632259913325000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLiH5ZbAjvMCFQAAAAAdAAAAABAD -->
+
+          <p><a href="#">Sign Up</a> and start adventuring today!</p>
+        </div>
+
+        <!-- Popular Adventures Section-->
+        <div id="popular-adventures">
+          <h3>Popular Adventures</h3>
+
+                <!-- Dynamically Load Content for the Adventure Locations -->
+                {% for location in adventure_locations %}
+                  <article>
+                    <img src="{{ location.img }}" alt="{{ location.alt }}"> <!-- Photo from BringFido https://photos.bringfido.com/attractions/4/2/0/13024/13024_53495.jpg?size=slide&density=1x-->
+
+                    <div>
+                      <div class="location-label">
+                        <h4>{{ location.name }}</h4>
+                        <p>Rating: {{ location.rating }}/5</p>
+                      </div>
+                    </div>
+
+                  <!-- Display only if user logged in -->
+                    {% if request.session.username %}
+                    <img src="{% static "media/heart.svg" %}" class="heartIcon" alt=""> <!-- The favorite icon, from "https://www.flaticon.com/" -->
+                    {% endif %}
+                  </article>
+                {% endfor %}
+
+        </div> <!-- End popular-adventures div-->
+
+{% endblock %}

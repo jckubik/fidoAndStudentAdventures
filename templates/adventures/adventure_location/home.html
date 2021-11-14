@@ -1,0 +1,102 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Logged Out{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+            <!-- Div to help reduce CSS -->
+          <div id="home-content">
+
+          <div id="activityFeedContainer">
+              {% include 'actions/action/feed.html' %}
+          </div>
+
+            <!-- Recommended for You Section-->
+            <div id="recommended">
+
+              <h3>Recommended For You</h3>
+
+                    <!-- Dynamically Load Content for the Adventure Locations -->
+                  {% for location in adventure_locations %}
+
+                      <!-- Only display top 2 -->
+                    {% if forloop.counter < 3 %}
+                        <article>
+                            <img src="{{ location.img }}" alt="{{ location.alt }}"> <!-- Photo from BringFido https://photos.bringfido.com/attractions/4/2/0/13024/13024_53495.jpg?size=slide&density=1x-->
+
+                            <div>
+                              <div class="location-label">
+                                <h4>{{ location.name }}</h4>
+                                <p>Rating: {{ location.rating }}/5</p>
+                              </div>
+                            </div>
+
+                                <!-- Display only if user logged in -->
+                              {% if request.session.username %}
+                                <img src="{% static "media/heart.svg" %}" class="heartIcon" alt=""> <!-- The favorite icon, from "https://www.flaticon.com/" -->
+                              {% endif %}
+                        </article>
+                    {% endif %}
+                {% endfor %}
+
+            </div> <!-- End of recommended div-->
+
+            <!-- Popular Adventures Section-->
+            <div id="popular-adventures">
+              <h3>Popular</h3>
+
+                <!-- Dynamically Load Content for the Adventure Locations -->
+                {% for location in adventure_locations %}
+
+                    <!-- Only display top 2 -->
+                    {% if forloop.counter < 3 %}
+                        <article>
+                            <img src="{{ location.img }}" alt="{{ location.alt }}"> <!-- Photo from BringFido https://photos.bringfido.com/attractions/4/2/0/13024/13024_53495.jpg?size=slide&density=1x-->
+
+                            <div>
+                              <div class="location-label">
+                                <h4>{{ location.name }}</h4>
+                                <p>Rating: {{ location.rating }}/5</p>
+                              </div>
+                            </div>
+
+                                <!-- Display only if user logged in -->
+                              {% if request.session.username %}
+                                <img src="{% static "media/heart.svg" %}" class="heartIcon" alt=""> <!-- The favorite icon, from "https://www.flaticon.com/" -->
+                              {% endif %}
+                        </article>
+                    {% endif %}
+                {% endfor %}
+
+            </div> <!-- End of Popular Adventures div-->
+
+            <!-- Find Trips Section-->
+            <div id="find-trips">
+              <h3>Find Trips</h3>
+
+                <!-- Dynamically Load Content for the Adventure Locations -->
+                {% for trip in adventure_trips %}
+
+                    <!-- Only display top 2 -->
+                    {% if forloop.counter < 3 %}
+
+                    <article>
+                        <img src="{{ trip.img }}" alt="{{ trip.alt }}"> <!-- Photo from BringFido https://photos.bringfido.com/attractions/4/2/0/13024/13024_53495.jpg?size=slide&density=1x-->
+                        <div>
+                          <div class="location-label">
+                            <h4>{{ trip.name }}</h4>
+                            <p>Date: {{ trip.date|date:'m/d/Y' }}</p>
+                          </div>
+                        </div>
+                     </article>
+
+                    {% endif %}
+                {% endfor %}
+
+            </div><!-- End of Find Trips div-->
+
+          </div> <!-- End home content div-->
+
+{% endblock %}

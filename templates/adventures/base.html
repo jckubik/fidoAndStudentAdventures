@@ -1,0 +1,110 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+        <title>Fido&Student Adventures | {% block page-title %}{% endblock %} </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="{% static "js/jquery-3.6.0.min.js" %}"></script>
+      <script src="{% static "js/scripts.js" %}"></script>
+      <link rel="stylesheet" type="text/css" href="{% static "css/responsive.css" %}">
+    </head>
+
+    <body>
+
+        <!-- The header section of the page-->
+        <div id="header">
+
+          <!--The Logo and Main Title-->
+          <div id="title-main">
+            <img src="{% static "media/dog.svg" %}" alt="logo">
+            <div>
+              <h1>Fido&Student Adventures</h1>
+            </div>
+          </div>
+
+          <!-- top-right logged-in status -->
+
+                <!-- Display only if user logged in -->
+              {% if request.session.username %}
+                  <div id="login-box">
+                    <form id="login-box-form">
+                        <p>Logged in as <a href="{% url 'users:profile' request.session.username %}"><strong
+                        >{{ request.session.username }}</strong></a> |
+                            <a
+                                href="
+{% url 'users:logout' %}">Log
+                            out</a></p>
+                    </form>
+                  </div>
+
+                  <!-- Else, display this for logged out users -->
+              {% else %}
+                    <div id="login-box">
+                        <form id="login-box-form" action="{% url 'users:login' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="username" placeholder="Username" required>
+                            <input type="password" name="password" placeholder="Password" required>
+                            <input type="submit" name="login" value="Log In"> or <a href="{% url 'users:register' %}">Sign Up</a>
+                        </form>
+                    </div>
+
+              {% endif %}
+
+          <!-- Main Navigation-->
+          <nav id="nav-main">
+            <ul>
+                <li><a href="{% url 'adventures:home' %}">Home</a></li>
+                <li><a href="{% url 'adventures:adventure_location_list' %}">Adventures</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                {% if request.session.username %}
+                    <li><a href="{% url 'users:profile' request.session.username %}">Profile</a></li>
+                {% endif %}
+            </ul>
+          </nav>
+
+        </div> <!-- End header-->
+
+        <!-- Content Section of the page-->
+        <div id="content">
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- The search Section-->
+          <div id ="searchAdventures">
+              {% block search-features %}{% endblock %}
+          </div>
+
+        <!-- Block for child templates to use for page content -->
+        {% block content %}
+
+        {% endblock %}
+
+        </div> <!-- End Content -->
+
+        <!-- The Footer section of the page-->
+        <div id="footer">
+
+          <!-- The Footer navigation -->
+          <nav id="nav-footer">
+            <ul>
+              <li><a href="{% url 'adventures:home' %}">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+                {% if request.session.username %}
+                    <li><a href="{% url 'users:profile' request.session.username %}">Profile</a></li>
+                {% endif %}
+              <li><a href="#">Help</a></li>
+            </ul>
+          </nav>
+        </div> <!-- End Footer-->
+
+      </body>
+    </html>

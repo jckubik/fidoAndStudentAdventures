@@ -1,0 +1,190 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Location Page{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+              <!-- The Escape-->
+          <div class="escapeDiv">
+            <a href="{% url 'adventures:adventure_location_list' %}">Back</a>
+
+            <!-- Display only if user logged in -->
+            {% if request.session.username %}
+                <form action="{% url 'adventures:edit_location' location.id %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" id="editLocationButton" name="edit" value="Edit">
+                </form>
+            {% endif %}
+
+            <!-- Display only if user logged in as admin -->
+            {% if request.session.role == 'admin' %}
+                <form action="{% url 'adventures:delete_location' location.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="locationId" name="locationId" value="{{ location.id }}">
+                    <input type="submit" id="deleteLocationButton" name="delete" value="Delete Location">
+                </form>
+            {% endif %}
+          </div>
+
+          <!-- The Location Description Section-->
+          <div class="location">
+
+            <!-- Main Location Description-->
+            <div id="location-main-description">
+
+                <div>
+                  <h2>{{ location.name }}</h2>
+                  {% if request.session.username %}
+                    <img src="{% static "media/heart.svg" %}" class="heartIcon" alt="" id="location-page-heartIcon"> <!-- The favorite icon, from "https://www.flaticon.com/" -->
+                  {% endif %}
+                </div>
+
+                <div id="main-img-div">
+                  <img src="{{ location.img }}" id="location-main-img" alt="{{ location.alt }}"> <!-- Photo from blacksburg.gov https://www.blacksburg.gov/Home/Components/FacilityDirectory/FacilityDirectory/50/2512-->
+                </div>
+
+                <p> {{ location.description }} </p>
+                <p>Rating: {{ location.rating }}/5</p>
+                <p>{{ location.num_reviews }} - <a href="#">Reviews</a></p>
+                <p>Created on {{ location.date|date:'m/d/Y' }} by <a href="
+{% url 'users:profile' location.user.username %}">
+                    {{ location.user.username }}</a></p>
+
+            </div> <!-- End location-main-description div -->
+
+            <div id="location-supporting-description">
+
+              <!-- Features -->
+              <div id="location-features">
+                <h3>Features</h3>
+
+                <div>
+                  <img src="{% static "media/drop.svg" %}" class="featureIcon" alt=""> <!-- icon, water drop href="https://www.flaticon.com/authors/vectors-market"  -->
+                  <p>Water Source</p>
+                </div>
+
+                <div>
+                  <img src="{% static "media/poop-bag.svg" %}" class="featureIcon" alt=""> <!-- icon, bag href="https://www.freepik.com" -->
+                  <p>Poop Bags</p>
+                </div>
+
+                <div>
+                  <img src="{% static "media/leash.svg" %}" class="featureIcon" alt=""> <!-- icon, leash  href="https://www.freepik.com"-->
+                  <p>Off Leash</p>
+                </div>
+
+                <div>
+                  <img src="{% static "media/dog.svg" %}" class="featureIcon" alt=""> <!-- icon, dog href="https://www.freepik.com"-->
+                  <p>All Dogs</p>
+                </div>
+
+              </div> <!-- End location-features div-->
+
+            <!-- Display only if user logged in -->
+            {% if request.session.username %}
+              <!-- Upcoming Trips -->
+              <div id="location-upcoming-trips">
+                <h3>Upcoming Trips</h3>
+
+                  {% for trip in adventure_trips %}
+                      {% if forloop.counter < 3 %}
+
+                    <article>
+                      <div>
+                        <h4>{{ trip.name }}</h4>
+                        <p>Organizer - <a href="{% url 'users:profile' trip.user.username %}">{{ trip.user.username }}</a></p>
+                        <p>Date: {{ trip.date }}</p>
+                      </div>
+
+                      <div>
+                        <p> {{ trip.description }} </p>
+                      </div>
+                    </article>
+                      {% endif %}
+
+                  {% endfor %}
+
+                <button type="button">More Trips</button>
+
+              </div> <!-- End location-upcoming-trips div-->
+            {% endif %}
+
+              <!-- Reviews -->
+              <div id="location-reviews">
+                  <h3>Reviews</h3>
+
+                  <!-- Display only if user logged in -->
+                  {% if request.session.username %}
+
+                      <!-- Form for leaving a review on a location -->
+                    <form id="detailViewReviewForm" data-ajax-url=
+                            "{% url 'adventures:adventure_location_detail' location.id %}" action="" method="GET">
+                        <label for="review">Leave a review:</label>
+                        <br />
+                        <textarea id="review" name="review" placeholder="Leave a Review"></textarea>
+                        <br />
+                        <label for="rating">Rate This Adventure:</label>
+                        <select name="rating" id="detailViewRating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <br />
+                        <input type="hidden" id="author" name="author" value="{{ request.session.username }}">
+                        <input type="hidden" id="adventureId" name="adventureId" value="{{ location.id }}">
+                        <input type="submit" id="adventureReviewSubmit" name="submit" value="Post">
+                    </form>
+                  {% endif %}
+
+                  <div id="commentReviewContainer">
+                    <div id="review-user">
+                            <!-- Check to see if there are items in the DB to show -->
+                            {% if reviews.count == 0 %}
+
+                                <!-- Show empty message if not -->
+                                <div id="empty-DB-notice-div">
+                                    <p id="empty-DB-notice">
+                                        Looks like there aren't any reviews yet. Why not leave one?
+                                    </p>
+                                </div>
+
+                            {% else %}
+
+                                <!-- Template to handle the review generation -->
+                                {% include 'adventures/adventure_location/location_detail_review.html' %}
+
+                            {% endif %}
+
+                    </div> <!-- End review-user div-->
+
+                        <!-- Display only if user logged in -->
+                      {% if request.session.username %}
+                        <div id="location-comment">
+                          <h3>Comment</h3>
+
+                          <form>
+                            <label for="locationReview">Comment on this review:</label>
+                            <div>
+                              <input type="submit" value="Post">
+                              <textarea id="locationReview" name="locationReview">
+                                Leave a comment
+                              </textarea>
+                            </div>
+                          </form>
+
+                        </div> <!-- End location-comment div-->
+                      {% endif %}
+                  </div>
+
+              </div> <!-- End Location review div-->
+
+            </div> <!-- End Supporting Description Section -->
+
+
+          </div> <!-- End Location Description Section-->
+
+{% endblock %}

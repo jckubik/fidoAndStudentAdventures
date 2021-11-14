@@ -1,0 +1,565 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  padding: 1em 2em;
+}
+
+#title-main {
+  float: left;
+  margin: 2em 0 1em 2em;
+}
+
+#title-main h1 {
+  float: left;
+  margin: 0;
+  font-family: monospace;
+  font-size: 2em;
+  width: 30%;
+  margin: 0.5em 0 0 0;
+}
+
+#title-main img {
+  float: left;
+  width: 4em;
+  margin: 0.75em 0.5em 0 1em;
+}
+
+#login-div {
+  margin: 0;
+}
+
+#login-box {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+#login-box-form {
+  margin: 0 0 2em 0;
+}
+
+#login-box img {
+  display: none;
+}
+
+#mobileShow {
+  float: right;
+}
+
+#login-box p {
+  margin: 0;
+}
+
+#login-div {
+  margin: 0;
+}
+
+.loginMsg {
+  position: absolute;
+  top: 0;
+  right: 30%;
+  background-color: gray;
+  opacity: 0.8;
+  color: white;
+  font-size: 0.5em;
+  padding: 2em;
+  border-width: 3px;
+  border-style: groove;
+  border-color: black;
+  border-radius: 15%;
+}
+
+#nav-main {
+  clear: left;
+  margin: 0 0 2em 1em;
+  padding: 0 0 3.1em 0;
+  background-color: rgb(135, 176, 224);
+}
+
+#nav-main li a {
+  text-decoration: none;
+  background-color: rgb(135, 176, 224);
+  color: white;
+}
+
+.hide {
+  display: none;
+}
+
+#nav-main li a:hover {
+  background-color: white;
+  color: rgb(135, 176, 224);
+}
+
+#nav-main li a.selected {
+  background-color: grey;
+  color: white;
+}
+
+#content {
+  clear: left;
+  margin: 4em 0 0 1em;
+}
+
+#content .heartIcon {
+  height: auto;
+  width: 3em;
+  float: left;
+  margin: 1em 0 0 1em;
+}
+
+#content article .favoritedMsg {
+  float: left;
+  margin: 1.5em 0 0 1em;
+}
+
+#content article div.location-label {
+  float: left;
+}
+
+#content article div.location-label h4 {
+  margin: 1em 0 0 0;
+}
+
+#content article div.location-label p {
+  float: left;
+  margin: 1em 1em 0 0;
+}
+
+#home-content article {
+  float: left;
+  margin: 2em 1em 2em 0;
+}
+
+#home-content h3 {
+  font-size: 2em;
+  margin: 0;
+}
+
+#home-content > div {
+  clear: left;
+}
+
+#footer {
+  clear: left;
+}
+
+#nav-footer li a {
+  padding: 1em 1em;
+}
+
+#content img {
+  width: 21em;
+  height: 15em;
+  background-size: cover;
+}
+
+/* adventureSearch page */
+#search {
+  margin: 1em 0 0 0;
+}
+
+#search-error-div {
+  font-size: 2em;
+}
+
+#search-filter {
+  float: left;
+  margin: 1em 0 0 0;
+}
+
+#results {
+  clear: left;
+}
+
+#results article {
+  clear: left;
+}
+
+#results article > div {
+  float: left;
+  margin: 0 0 3em 0;
+}
+
+#results .heartIcon {
+  height: auto;
+  width: 3em;
+  float: right;
+  margin: 0 2em 0 0;
+}
+
+/* Location Page */
+
+#location-main-description div > .heartIcon {
+  float: left;
+}
+
+#location-main-description div > h2 {
+  float: left;
+}
+
+#location-main-description div > #location-main-img {
+  clear: left;
+  width: 21em;
+  height: auto;
+  margin: 0 5em 0 0;
+}
+
+#location-main-description div img {
+  width: 10em;
+  height: auto;
+}
+
+#location-features div {
+  clear: left;
+  margin: 0 0 4em 0;
+}
+
+#location-features p {
+  float: left;
+  margin: 1.5em 0 0 0;
+}
+
+#location-features .featureIcon {
+  float: left;
+  height: auto;
+  width: 2em;
+  margin: 1em 0.75em 0.5em 0;
+}
+
+#location-upcoming-trips {
+  clear: left;
+  margin: 2em 0 0 0;
+}
+
+#location-reviews {
+  clear: left;
+}
+
+#location-upcoming-trips p {
+  margin: 0.25em 0 0.25em 0;
+}
+
+#commentReviewContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* Adventure Creator page */
+
+#main-items-div {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1em;
+  margin: 3em;
+}
+
+#main-items-div div {
+  display: grid;
+}
+
+ul.messages {
+  font-weight: bold;
+  padding: 1em;
+  margin: 0;
+}
+
+ul.messages li.success {
+  background-color: lightgreen;
+  padding: 1em;
+  margin: .25em;
+  list-style: none;
+}
+
+ul.messages li.info {
+  background-color: lightskyblue;
+  padding: 1em;
+  margin: .25em;
+  list-style: none;
+}
+
+ul.messages li.warning {
+  background-color: palevioletred;
+  padding: 1em;
+  margin: .25em;
+  list-style: none;
+}
+
+.escapeDiv {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 10%;
+}
+
+/* Logged out Home Page */
+
+#callToAction img {
+  width: 10em;
+  height: auto;
+}
+
+#callToAction {
+  text-align: center;
+}
+
+/* ----------------------------- Begin Media Query  ------------------------ */
+@media all and (min-width: 376px) {
+  #title-main {
+    float: left;
+    width: 70%;
+    margin: 0 0 0 4em;
+  }
+
+  #title-main h1 {
+    width: 75%;
+    margin: 0.75em 0 0 0;
+  }
+
+  #title-main img {
+    margin: 0.75em 2em 0 0;
+  }
+
+  #menu-icon {
+    display: none;
+  }
+
+  #login-box {
+    position: relative;
+    float: left;
+    width: 20%;
+  }
+
+  #login-box img {
+    display: block;
+    float: left;
+    width: 2.5em;
+    margin: 1em 1em 0 0;
+  }
+
+  #login-box p {
+    float: left;
+    margin: 1em 1em 0.25em 0em;
+  }
+
+  #login-box button {
+    display: block;
+    float: left;
+  }
+
+  #nav-main {
+    margin: 0 0 2em 4em;
+  }
+
+  .hide {
+    display: block;
+  }
+
+  #nav-main li a:hover {
+    background-color: white;
+    color: rgb(135, 176, 224);
+  }
+
+  #nav-main li a.selected {
+    background-color: grey;
+    color: white;
+  }
+
+  #content {
+    margin: 1em 0 0 2em;
+  }
+
+  #content .heartIcon {
+    width: 2em;
+    float: right;
+    margin: 1em 0.5em 0 1em;
+  }
+
+  #content img {
+    width: 23em;
+    height: 15em;
+    background-size: cover;
+  }
+
+  #content article div.location-label p {
+    float: none;
+  }
+
+  #searchAdventures {
+    margin: 0 0 2em 4em;
+  }
+
+  /* adventureSearch page */
+
+  #content .heartIcon {
+    height: auto;
+    width: 3em;
+    float: left;
+    margin: 1em 0 0 1em;
+  }
+
+  #search-filter {
+    float: right;
+    margin: 0 5em 0 0;
+  }
+
+  #results article .results-image {
+    float: left;
+    margin: 2em 0 2em 0;
+  }
+
+  #results article > div {
+    float: left;
+    margin: 2em 0 2em 2em;
+    width: 60em;
+  }
+
+  #results article .heartIcon {
+    float: left;
+    margin: 1em 0.5em 0 0;
+  }
+
+  #results article .location-label > div p {
+    float: left;
+    margin: 1.25em 0 0 0;
+  }
+
+  /*  Location Page */
+
+  #location-main-description {
+    margin: 2em 0 2em 0;
+  }
+
+  #location-main-description div > #location-main-img {
+    width: 40em;
+    height: auto;
+  }
+
+  #main-img-div {
+    clear: left;
+  }
+
+  #location-features {
+    float: left;
+    width: 50%;
+  }
+
+  #location-features div {
+    clear: left;
+  }
+
+  #location-features p {
+    float: left;
+    margin: 1.5em 0 0 0;
+  }
+
+  #location-features .featureIcon {
+    float: left;
+    height: auto;
+    width: 2em;
+    margin: 1em 0.5em 0 1em;
+  }
+
+  #location-upcoming-trips {
+    clear: none;
+    float: left;
+    width: 50%;
+  }
+
+  #location-reviews {
+    clear: left;
+  }
+
+  #location-reviews img {
+    float: left;
+    width: 2.5em;
+    margin: 1em 1em 0 0;
+    height: auto;
+  }
+
+  #location-reviews a {
+    float: left;
+  }
+
+  #review-user {
+    margin: 2em 0 0 0;
+  }
+
+  #review-user p {
+    margin: 0;
+  }
+
+  .reviewContainer > p {
+    width: 70%;
+  }
+
+  #location-comment input {
+    float: left;
+  }
+
+  #location-comment textarea {
+    float: left;
+  }
+
+  /* Adventure Creator */
+
+  #option-buttons {
+    float: right;
+    position: relative;
+    right: 1em;
+    bottom: 2em;
+  }
+
+  #feature-options {
+    clear: left;
+  }
+
+  /* Logged Out Home Page*/
+
+  #callToAction img {
+    margin: 2em 10em 2em 10em;
+    width: 30em;
+    height: auto;
+  }
+
+  #popular-adventures article {
+    float: left;
+    margin: 2em 1em 2em 0;
+  }
+
+  #list-div article {
+    clear: left;
+    margin: 2em 1em 2em 2em;
+  }
+
+  #list-div h3 {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  #list-div > div {
+    clear: left;
+  }
+
+  #list-div .location-label {
+    margin: 0 0 2em 0;
+  }
+}

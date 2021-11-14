@@ -1,0 +1,16 @@
+{% load static %}
+
+{% for review in reviews %}
+
+    <article class="reviewContainer">
+        <div>
+          <p>{{ review.date|date:'m/d/Y' }}</p>
+          <a href="#">{{ review.user.username }}</a>
+          <br />
+        <p>Rating: {{ review.rating }}/5</p>
+        </div>
+        <p>{{ review.review }}</p>
+    </article>
+    <br />
+
+{% endfor %}

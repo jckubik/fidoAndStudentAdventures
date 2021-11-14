@@ -1,0 +1,59 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Edit Location{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <!-- The Escape-->
+          <div>
+            <a href="{% url 'adventures:adventure_location_list' %}">Back</a>
+          </div>
+
+          <h2>Edit Adventure</h2>
+
+              <!-- Form to collect the adventure data -->
+          <form id="create-new-adventure" action="{% url 'adventures:edit_location' location.id %}" method="POST">
+            {% csrf_token %}
+            <!-- Upper Form Section -->
+            <div id="upper-form-section">
+
+              <!-- Hold Option Buttons -->
+              <div id="option-buttons">
+                <a href="{% url 'adventures:adventure_location_detail' location.id %}">Cancel</a>
+                <button type="submit" name="submit">Save Location</button>
+              </div>
+
+              <!-- Hold Main Item Forms-->
+                <p>* = required </p>
+                <img src="{{ location.img }}" alt="{{ location.alt }}">
+              <div id="main-items-div">
+
+                    <div>
+                        <label for="locationMainImage">Add Main Image*</label>
+                        <input type="text" id ="locationMainImage" name="locationMainImage" value="{{ location.img }}"
+                             required>
+                    </div>
+                  <div>
+                        <label for="locationName">Location Name*</label>
+                        <input type="text" id="locationName" name="locationName" value="{{ location.name }}" required>
+                  </div>
+                  <div>
+                        <label for="locationDescription">Description*</label>
+                        <input type="textArea" id="locationDescription" name="locationDescription" value=
+                          "{{ location.description }}" required>
+                  </div>
+                  <div>
+                        <label for="mainImageAlt">Add Alt Text*</label>
+                        <input type="text" id="mainImageAlt" name="mainImageAlt" value="{{ location.alt }}" required>
+                  </div>
+
+
+
+              </div><!-- End main items div -->
+            </div> <!-- End upper form section div -->
+
+          </form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "adventures/base.html" %}
+
+{% block page-title %}Profile for {{ user.username }}{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <h2>Profile for: {{ user.username }}</h2>
+
+    <dl>
+        <dt>Username</dt>
+        <dd>{{ user.username }}</dd>
+        <dt>Email</dt>
+        <dd>{{ user.email }}</dd>
+        <dt>Role</dt>
+        <dd>{{ user.details.role }}</dd>
+    </dl>
+
+{% endblock %}

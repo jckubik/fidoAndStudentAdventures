@@ -1,0 +1,24 @@
+{% load static %}
+<!-- Dynamically Load Content for the Adventure Locations -->
+{% for location in adventure_locations %}
+  <article>
+      <img src="{{ location.img }}" alt="{{ location.alt }}" class="results-image"> <!-- Photo from Montgomery County Website https://montgomerycountyva.gov/parks-and-rec/parks-facilities/huckleberry-trail-->
+      <div>
+        <div class="location-label">
+          <h4><a href="{% url 'adventures:adventure_location_detail' location.id %}"
+          >{{ location.name }}</a></h4>
+          <p>{{ location.description }}</p>
+          <p>Rating: {{ location.rating }}/5</p>
+          <p>{{ location.num_reviews }} - <a href="#">Reviews</a></p>
+          <div>
+
+          <!-- Display only if user logged in -->
+          {% if request.session.username %}
+            <img src="{% static "media/heart.svg" %}" class="heartIcon" alt=""> <!-- The favorite icon, from "https://www.flaticon.com/" -->
+            <p class="hide">Add to Favorites</p>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </article>
+{% endfor %}
