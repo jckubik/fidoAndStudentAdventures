@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 class Details(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(default='regular', max_length=50)
+    role = models.CharField(default='regular', max_length=50, null=True)
 
 
 @receiver(post_save, sender=User)

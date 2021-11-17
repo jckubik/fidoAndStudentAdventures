@@ -47,6 +47,9 @@
                               <option value="ungregistered">Unregistered</option>
                               <option value="admin">Admin</option>
                           </select>
+                          {% else %}
+
+                          <input type="hidden" name="role" value="{{ user.details.role }}">
                       {% endif %}
 
                       </div><!-- End register user div -->

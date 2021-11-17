@@ -131,9 +131,10 @@ def edit_user(request, username):
             user.password = password
 
         # If there's a new role, change it
-        if role != 'same':
+        if role != user.details.role and role != 'same':
             user.details.role = role
             session_user = User.objects.get(username=request.session.get('username'))
+
             action = Action(
                 user=session_user,
                 verb="changed user role of:",
