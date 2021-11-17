@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'adventures.apps.AdventuresConfig',
     'users.apps.UsersConfig',
     'actions.apps.ActionsConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [

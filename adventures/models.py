@@ -50,14 +50,3 @@ class AdventureTrip(models.Model):
 
     def get_absolute_url(self):
         return reverse('adventures:adventure_location_detail', args=[self.id])
-
-# User credentials
-regular_user = {
-    'username': 'jckubik',
-    'password': 'accessCode',
-}
-
-admin_user = {
-    'username': 'admin',
-    'password': 'adminCode',
-}

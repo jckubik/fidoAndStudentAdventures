@@ -270,6 +270,7 @@ nav li a {
   grid-template-columns: 1fr;
   grid-row-gap: 1em;
   margin: 3em;
+  width: 30%;
 }
 
 #main-items-div div {
@@ -296,7 +297,7 @@ ul.messages li.info {
   list-style: none;
 }
 
-ul.messages li.warning {
+ul.messages li.warning, li.error {
   background-color: palevioletred;
   padding: 1em;
   margin: .25em;
@@ -319,6 +320,74 @@ ul.messages li.warning {
 
 #callToAction {
   text-align: center;
+}
+
+/* User related Activities */
+
+#register-user-div {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1em;
+  margin: 3em;
+  width: 30%;
+}
+
+#register-user-div div {
+  display: grid;
+}
+
+#register-user-submit {
+  margin: 0 0 0 3em;
+}
+
+#profile-div {
+  display: flex;
+  flex-direction: column;
+  margin: 3em;
+  width: 30%;
+}
+
+#profile-div h4 {
+  flex: 1;
+}
+
+#profile-div p {
+  margin: 0;
+}
+
+#edit-user-div {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1em;
+  margin: 1em;
+  width: 30%;
+}
+
+#edit-user-div p {
+  font-weight: bold;
+}
+
+#edit-user-div div {
+  display: grid;
+}
+
+#user-list-table {
+  margin: 3em;
+}
+
+#user-list-table th, td {
+  padding: 0.3em 1em 0.3em 1em;
+}
+
+/* ---------- Actions ---------- */
+#activity-feed-list {
+  list-style-type: none;
+}
+
+#activity-feed-list li {
+  margin: .5em;
 }
 
 /* ----------------------------- Begin Media Query  ------------------------ */
@@ -509,6 +578,12 @@ ul.messages li.warning {
 
   .reviewContainer > p {
     width: 70%;
+  }
+
+  .reviewContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 20%;
   }
 
   #location-comment input {

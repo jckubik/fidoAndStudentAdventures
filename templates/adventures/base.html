@@ -61,6 +61,9 @@
                 {% if request.session.username %}
                     <li><a href="{% url 'users:profile' request.session.username %}">Profile</a></li>
                 {% endif %}
+                {% if request.session.role == 'admin' %}
+                    <li><a href="{% url 'users:list' %}">Edit Users</a></li>
+                {% endif %}
             </ul>
           </nav>
 

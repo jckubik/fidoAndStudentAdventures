@@ -1,0 +1,38 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}User List{% endblock %}
+
+<!-- Add content for the search feature section -->
+{% block search-features %}
+
+            <a href="{% url 'adventures:home' %}">Exit</a>
+{% endblock %}
+
+{% block content %}
+
+    <table id="user-list-table">
+
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Edit Role</th>
+        </tr>
+
+        {% for user in users %}
+
+            <tr>
+                <td><a href="{% url 'users:profile' user.username %}">{{ user.username }}</a></td>
+                <td>{{ user.details.role }}</td>
+                <td><a href="{% url 'users:edit' user.username %}">Edit</a></td>
+            </tr>
+
+        {% empty %}
+
+            <li>No users stored.</li>
+
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

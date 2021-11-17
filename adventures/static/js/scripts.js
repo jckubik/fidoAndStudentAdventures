@@ -98,6 +98,7 @@ $(document).ready(function() {
          const adventureId = $('#adventureId').val();
          const review = $('#review').val();
          const rating = $('#detailViewRating').val();
+         document.getElementById('detailViewReviewForm').reset();
 
          // Using the core $.ajax() method
         $.ajax({
@@ -128,6 +129,56 @@ $(document).ready(function() {
           if (json.success == 'success') {
               // If success, then render the locations-results template with the ordered queryset
               $('#review-user').html(json['html_from_view']);
+          } else {
+              alert('Error: ' + json.error);
+          }
+        })
+        // Code to run if the request fails; the raw request and
+        // status codes are passed to the function
+        .fail(function( xhr, status, errorThrown ) {
+          console.log( "Error: " + errorThrown );
+        })
+        // Code to run regardless of success or failure;
+        .always(function( xhr, status ) {
+        });
+     });
+
+     // Delete a review --------------
+     $('#deleteReviewForm').on('submit', function(event) {
+         event.preventDefault();
+         const ajaxURL = $('#deleteReviewForm').attr('data-ajax-url');
+         const reviewId = document.activeElement.getAttribute('id');
+         const locationId = $('#locationId').val();
+
+         // Using the core $.ajax() method
+        $.ajax({
+
+          // The URL for the request
+          url: ajaxURL,
+
+          // The data to send (will be converted to a query string)
+          data: {
+              reviewId: reviewId,
+              locationId: locationId,
+          },
+
+          // Whether this is a POST or GET request
+          type: "POST",
+
+          // The type of data we expect back
+          dataType : "json",
+
+          // The CSRF token to be passed
+          headers: {'X-CSRFToken': csrftoken},
+        })
+        // Code to run if the request succeeds (is done);
+        // The response is passed to the function
+        .done(function( json ) {
+          if (json.success == 'success') {
+              // If success, then render the locations-results template with the ordered queryset
+              $('#review-user').html(json['html_from_view']);
+          } else if (json.success == 'failure') {
+                alert('You do not have authorization to delete this review.');
           } else {
               alert('Error: ' + json.error);
           }
@@ -188,6 +239,7 @@ $(document).ready(function() {
         .always(function( xhr, status ) {
         });
      });
+
 
 }); // End of ready function
 

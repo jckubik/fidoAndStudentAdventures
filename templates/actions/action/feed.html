@@ -1,12 +1,17 @@
 <h3>Recent Activity</h3>
 
-<ul>
+<ul id="activity-feed-list">
     {% for action in actions %}
 
-        <li>{{ action.user.username }} {{ action.verb }} <a href="{{ action.target.get_absolute_url }}"
-        >{{ action.target }}</a>
-            ({{ action.created|date:'m/d/Y' }})
-        </li>
+        <!-- Keep last 5 activities posted -->
+        {% if forloop.counter < 6 %}
+
+            <li>({{ action.created|date:'m/d/Y' }}) - <a href="{% url 'users:profile' action.user.username %}"
+            >{{ action.user.username }}</a> {{ action.verb }} {% if action.target %}
+                <a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>{% else %}Not Found{% endif %}
+            </li>
+
+        {% endif %}
 
     {% empty %}
 

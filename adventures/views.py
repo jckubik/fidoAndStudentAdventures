@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.template.loader import render_to_string
 
-from .models import regular_user, admin_user, AdventureLocation, AdventureTrip, Review, User
+from .models import AdventureLocation, AdventureTrip, Review, User
 from actions.models import Action
 from django.http import JsonResponse
 from django.core import serializers
@@ -49,7 +49,7 @@ def adventure_location_detail(request, location_id):
         if (location.id == location_id):
             break
 
-    reviews = Review.objects.filter(adventureLocation__id=location.id)
+    reviews = Review.objects.filter(adventureLocation__id=location.id).order_by('-date')
 
     if is_ajax:
         if request.method == 'POST':
@@ -67,6 +67,16 @@ def adventure_location_detail(request, location_id):
                 rating=rating,
             )
             nr.save()
+
+
+            # Log the action
+            user = User.objects.get(username=request.session.get('username'))
+            action = Action(
+                user=user,
+                verb="left a new review on:",
+                target=theAdventure,
+            )
+            action.save()
 
             # Render the review section as html to send as response
             htmlToRender = render_to_string(
@@ -86,6 +96,32 @@ def adventure_location_detail(request, location_id):
                       'reviews': reviews,
                   },
                   )
+
+
+# View to delete reviews
+def delete_review(request):
+    review_list = Review.objects.all()
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    review_id = request.POST.get('reviewId')
+    location_id = request.POST.get('locationId')
+    reviews = Review.objects.filter(adventureLocation__id=location_id).order_by('-date')
+    for review in review_list:
+        if (review.id == review_id):
+            break
+
+    if is_ajax and request.method == 'POST':
+            review_to_delete = Review.objects.get(pk=review_id)
+            review_to_delete.delete()
+
+            # Render the review section as html to send as response
+            htmlToRender = render_to_string(
+                template_name='adventures/adventure_location/location_detail_review.html', context={'reviews': reviews}
+            )
+            data_dict = {'html_from_view': htmlToRender, 'success': 'success'}
+            return JsonResponse(data=data_dict, safe=False, status=200)
+
+    else:
+        return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
 
 
 # View for search function
@@ -130,7 +166,7 @@ def adventure_creator(request):
         # Log the action
         action = Action(
             user=user,
-            verb="created the adventure location",
+            verb="created the adventure location:",
             target=al,
         )
         action.save()
@@ -189,6 +225,16 @@ def edit_location(request, location_id):
         adventure.img = request.POST.get('locationMainImage')
         adventure.alt = request.POST.get('mainImageAlt')
         adventure.save()
+        user = User.objects.get(username=request.session.get('username'))
+
+        # Log the action
+        action = Action(
+            user=user,
+            verb="edited a location:",
+            target=adventure,
+        )
+        action.save()
+
         messages.add_message(
             request,
             messages.INFO,
@@ -217,22 +263,18 @@ def delete_location(request, location_id):
     adventure = AdventureLocation.objects.get(pk=location_id)
     name = adventure.name
     adventure.delete()
+    user = User.objects.get(username=request.session.get('username'))
+
+    # Log the action
+    action = Action(
+        user=user,
+        verb="deleted a location",
+    )
+    action.save()
+
     messages.add_message(
         request,
         messages.WARNING,
         "Location %s successfully deleted" % name,
     )
     return redirect('adventures:adventure_location_list')
-
-# # View to order list view items
-# def adventure_location_list_orderBy(request):
-#     is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
-#     if is_ajax and request.method == 'GET':
-#         orderType = request.GET.get('orderType')
-#
-#
-#         adventure_locations = serializers.serialize('json', AdventureLocation.objects.all().order_by(orderType))
-#         return JsonResponse({ 'success': 'success', 'adventure_locations': adventure_locations}, status=200)
-#
-#     else:
-#         return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)

@@ -1,0 +1,59 @@
+{% extends "adventures/base.html" %}
+
+{% block page-title %}Edit User {{ user.username }}{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <h2>User: {{ user.username }}</h2>
+
+              <div id="edit-user-div">
+                  <form id="editUserForm" action="{% url 'users:edit' user.username %}" method="POST">
+                      {% csrf_token %}
+
+                      <div id="edit-user-div">
+
+                            <div>
+                                <label for="username">Username</label>
+                                <p>{{ user.username }}</p>
+                            </div>
+
+                          <div>
+                                <label for="firstName">First Name</label>
+                                <input type="text" name="firstName" value="{{ user.first_name }}" required>
+                          </div>
+
+                          <div>
+                                <label for="email">Last Name</label>
+                                <input type="text" name="lastName" value="{{ user.last_name }}" required>
+                          </div>
+
+                          <div>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" value="{{ user.email }}" required>
+                          </div>
+
+                          <div>
+                                <label for="registerPassword">Password</label>
+                                <input type="password" id="editPassword" name="password" placeholder="New Password">
+                          </div>
+
+                      <!-- Show role change if Admin -->
+                      {% if request.session.role == 'admin' %}
+                          <label for="role">Role: {{ user.details.role }}</label>
+                          <select name="role" id="editUserList">
+                              <option value="same">Don't Change</option>
+                              <option value="regular">Regular</option>
+                              <option value="ungregistered">Unregistered</option>
+                              <option value="admin">Admin</option>
+                          </select>
+                      {% endif %}
+
+                      </div><!-- End register user div -->
+
+                                  <br />
+                                  <button type="submit" name="submit">Submit</button>
+                  </form>
+              </div><!-- End edit user div -->
+
+{% endblock %}

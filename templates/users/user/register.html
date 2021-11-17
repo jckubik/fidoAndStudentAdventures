@@ -13,15 +13,9 @@
             {% csrf_token %}
             <!-- Upper Form Section -->
             <div id="upper-form-section">
-
-              <!-- Hold Option Buttons -->
-              <div id="option-buttons">
-                <button type="submit" name="submit">Sign Up</button>
-              </div>
-
               <!-- Hold Main Item Forms-->
                 <p>* = required </p>
-              <div id="main-items-div">
+              <div id="register-user-div">
 
                     <div>
                       <label for="registerUsername">Username*</label>
@@ -39,9 +33,12 @@
                         <input type="password" id="registerPassword" name="password" placeholder="Password" required>
                   </div>
 
+              </div><!-- End register user div -->
 
-
-              </div><!-- End main items div -->
+                  <!-- Hold Submit Button -->
+                  <div id="register-user-submit">
+                    <button type="submit" name="submit">Sign Up</button>
+                  </div>
             </div> <!-- End upper form section div -->
           </form>
 

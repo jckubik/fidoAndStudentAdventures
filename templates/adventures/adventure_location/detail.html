@@ -120,7 +120,8 @@
 
                       <!-- Form for leaving a review on a location -->
                     <form id="detailViewReviewForm" data-ajax-url=
-                            "{% url 'adventures:adventure_location_detail' location.id %}" action="" method="GET">
+                            "{% url 'adventures:adventure_location_detail' location.id %}" action="" method="POST">
+                        {% csrf_token %}
                         <label for="review">Leave a review:</label>
                         <br />
                         <textarea id="review" name="review" placeholder="Leave a Review"></textarea>
@@ -141,43 +142,31 @@
                   {% endif %}
 
                   <div id="commentReviewContainer">
-                    <div id="review-user">
-                            <!-- Check to see if there are items in the DB to show -->
-                            {% if reviews.count == 0 %}
+                      <form id="deleteReviewForm" data-ajax-url="{% url 'reviews:delete' %}"
+                      action="" method="POST">
+                        {% csrf_token %}
+                          <input type="hidden" id="locationId" name="locationId" value="{{ location.id }}">
+                        <div id="review-user">
+                                <!-- Check to see if there are items in the DB to show -->
+                                {% if reviews.count == 0 %}
 
-                                <!-- Show empty message if not -->
-                                <div id="empty-DB-notice-div">
-                                    <p id="empty-DB-notice">
-                                        Looks like there aren't any reviews yet. Why not leave one?
-                                    </p>
-                                </div>
+                                    <!-- Show empty message if not -->
+                                    <div id="empty-DB-notice-div">
+                                        <p id="empty-DB-notice">
+                                            Looks like there aren't any reviews yet. Why not leave one?
+                                        </p>
+                                    </div>
 
-                            {% else %}
+                                {% else %}
 
-                                <!-- Template to handle the review generation -->
-                                {% include 'adventures/adventure_location/location_detail_review.html' %}
+                                    <!-- Template to handle the review generation -->
+                                    {% include 'adventures/adventure_location/location_detail_review.html' %}
 
-                            {% endif %}
+                                {% endif %}
 
-                    </div> <!-- End review-user div-->
+                        </div> <!-- End review-user div-->
+                      </form>
 
-                        <!-- Display only if user logged in -->
-                      {% if request.session.username %}
-                        <div id="location-comment">
-                          <h3>Comment</h3>
-
-                          <form>
-                            <label for="locationReview">Comment on this review:</label>
-                            <div>
-                              <input type="submit" value="Post">
-                              <textarea id="locationReview" name="locationReview">
-                                Leave a comment
-                              </textarea>
-                            </div>
-                          </form>
-
-                        </div> <!-- End location-comment div-->
-                      {% endif %}
                   </div>
 
               </div> <!-- End Location review div-->

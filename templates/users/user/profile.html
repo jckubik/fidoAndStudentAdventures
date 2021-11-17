@@ -7,13 +7,44 @@
 
     <h2>Profile for: {{ user.username }}</h2>
 
-    <dl>
-        <dt>Username</dt>
-        <dd>{{ user.username }}</dd>
-        <dt>Email</dt>
-        <dd>{{ user.email }}</dd>
-        <dt>Role</dt>
-        <dd>{{ user.details.role }}</dd>
-    </dl>
+    <!-- Only show if it's the current user's profile, or an admin -->
+    {% if request.session.username == user.username or request.session.role == 'admin' %}
+        <a href="{% url 'users:edit' user.username %}">Edit Information</a>
+    {% endif %}
+
+    <!-- Display the activity feed -->
+    <div id="activityFeedContainer">
+        {% include 'actions/action/feed.html' %}
+    </div>
+
+    <!-- Display profile information -->
+      <div id="profile-div">
+          <div>
+              <h4>Username</h4>
+              <p>{{ user.username }}</p>
+          </div>
+
+          <div>
+              <h4>First Name</h4>
+              <p>{{ user.first_name }}</p>
+          </div>
+
+          <div>
+              <h4>Last Name</h4>
+              <p>{{ user.last_name }}</p>
+          </div>
+
+          <div>
+              <h4>Email</h4>
+              <p>{{ user.email }}</p>
+          </div>
+
+          <div>
+              <h4>Role</h4>
+              <p>{{ user.details.role }}</p>
+          </div>
+
+
+    </div><!-- End register user div -->
 
 {% endblock %}

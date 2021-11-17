@@ -2,15 +2,28 @@
 
 {% for review in reviews %}
 
-    <article class="reviewContainer">
-        <div>
-          <p>{{ review.date|date:'m/d/Y' }}</p>
-          <a href="#">{{ review.user.username }}</a>
-          <br />
-        <p>Rating: {{ review.rating }}/5</p>
-        </div>
-        <p>{{ review.review }}</p>
-    </article>
+        <article class="reviewContainer">
+    <div>
+            <div>
+              <p>{{ review.date|date:'m/d/Y' }}</p>
+              <a href="#">{{ review.author }}</a>
+              <br />
+            <p>Rating: {{ review.rating }}/5</p>
+            </div>
+            <p>{{ review.review }}</p>
+    </div>
+    <div>
+        <input type="submit" id="{{ review.id }}" class="deleteReivewButton" name="submit" value="Delete">
+    </div>
+        </article>
     <br />
+
+    {% empty %}
+        <!-- Show empty message if not -->
+    <div id="empty-DB-notice-div">
+        <p id="empty-DB-notice">
+            Looks like there aren't any reviews yet. Why not leave one?
+        </p>
+    </div>
 
 {% endfor %}
