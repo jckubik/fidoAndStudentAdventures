@@ -1,0 +1,43 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Adventures{% endblock %}
+
+<!-- Add content for the search feature section -->
+{% block search-features %}
+
+            <a href="{% url 'adventures:adventure_trip_list' %}">Back</a>
+            <h2 class="hide">Find a Trip</h2>
+
+            <!-- Form to search by trip name -->
+            <form id="searchTrips" action="" data-ajax-url="{% url 'adventures:adventure_trip_list' %}" method="GET">
+              <input type="submit" name="submit" value="Search">
+              <input type="search" id="searchQueryString" name="search" placeholder="Find a Trip">
+            </form>
+
+{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <div id="results">
+
+    <!-- Check to see if there are items in the DB to show -->
+        {% if adventure_trips.count == 0 %}
+
+            <!-- Show empty message if not -->
+            <div id="empty-DB-notice-div">
+                <p id="empty-DB-notice">
+                    There are no trips right now. Please check back later.
+                </p>
+            </div>
+
+        {% else %}
+
+            <!-- Template that handles trip generation -->
+            {% include 'adventures/adventure_location/trips_results.html' %}
+
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -56,8 +56,11 @@
             <ul>
                 <li><a href="{% url 'adventures:home' %}">Home</a></li>
                 <li><a href="{% url 'adventures:adventure_location_list' %}">Adventures</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                {% if request.session.username %}
+                    <li><a href="{% url 'adventures:adventure_trip_list' %}">Trips</a></li>
+                {% endif %}
+                <li><a href="{% url 'adventures:about' %}">About</a></li>
+                <li><a href="{% url 'adventures:contact' %}">Contact</a></li>
                 {% if request.session.username %}
                     <li><a href="{% url 'users:profile' request.session.username %}">Profile</a></li>
                 {% endif %}
@@ -99,12 +102,12 @@
           <nav id="nav-footer">
             <ul>
               <li><a href="{% url 'adventures:home' %}">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="{% url 'adventures:about' %}">About</a></li>
+              <li><a href="{% url 'adventures:contact' %}">Contact</a></li>
                 {% if request.session.username %}
                     <li><a href="{% url 'users:profile' request.session.username %}">Profile</a></li>
                 {% endif %}
-              <li><a href="#">Help</a></li>
+              <li><a href="{% url 'adventures:help' %}">Help</a></li>
             </ul>
           </nav>
         </div> <!-- End Footer-->

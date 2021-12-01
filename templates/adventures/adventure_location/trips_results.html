@@ -1,0 +1,15 @@
+{% load static %}
+<!-- Dynamically Load Content for the Adventure Locations -->
+{% for trip in adventure_trips %}
+  <article>
+      <div>
+        <div class="trip-label">
+          <h4><a href="{% url 'adventures:adventure_location_detail' trip.adventureLocation.id %}"
+          >{{ trip.name }}</a></h4>
+            <p>{{ trip.date|date:'m/d/Y' }}</p>
+          <p>{{ trip.summary }}</p>
+
+        </div>
+      </div>
+    </article>
+{% endfor %}

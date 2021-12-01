@@ -1,0 +1,53 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Trips Creator{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <!-- The Escape-->
+          <div>
+            <a href="{% url 'adventures:adventure_location_list' %}">Back</a>
+          </div>
+
+          <h2>Trip Creator</h2>
+
+          <!-- Form to collect the trip data -->
+          <form id="create-new-adventure" action="{% url 'adventures:trip_creator' location.id %}" method="POST">
+            {% csrf_token %}
+            <!-- Upper Form Section -->
+            <div id="upper-form-section">
+
+              <!-- Hold Option Buttons -->
+              <div id="option-buttons">
+                <button type="submit" name="submit">Save Trip</button>
+              </div>
+
+              <!-- Hold Main Item Forms-->
+                <p>* = required </p>
+              <div id="main-items-div">
+
+
+                  <div>
+                        <label for="tripName">Trip Name*</label>
+                        <input type="text" name="tripName" placeholder="Add Name" required>
+                  </div>
+
+                    <div>
+                      <label for="date">Date</label>
+                      <input type="text" id ="date" name="date" placeholder="MM/DD/YYYY"
+                             required>
+                    </div>
+
+                  <div>
+                        <label for="tripDescription">Description*</label>
+                        <input type="textArea" id="tripDescription" name="tripDescription"
+                               placeholder="Add Description" required>
+                  </div>
+
+              </div><!-- End main items div -->
+            </div> <!-- End upper form section div -->
+          </form>
+
+{% endblock %}

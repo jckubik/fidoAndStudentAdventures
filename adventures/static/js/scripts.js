@@ -240,6 +240,53 @@ $(document).ready(function() {
         });
      });
 
+         // Search the trips by name ---------------------
+    $('#searchTrips').on('submit', function(event) {
+         event.preventDefault();
+         const ajaxURL = $('#searchTrips').attr('data-ajax-url');
+         const queryString = $('#searchQueryString').val();
+
+
+         // Using the core $.ajax() method
+        $.ajax({
+
+          // The URL for the request
+          url: ajaxURL,
+
+          // The data to send (will be converted to a query string)
+          data: {
+                queryString: queryString,
+          },
+
+          // Whether this is a POST or GET request
+          type: "GET",
+
+          // The type of data we expect back
+          dataType : "json",
+
+          // The CSRF token to be passed
+          headers: {'X-CSRFToken': csrftoken},
+        })
+        // Code to run if the request succeeds (is done);
+        // The response is passed to the function
+        .done(function( json ) {
+          if (json.success == 'success') {
+            console.log('success triggered');
+              // If success, then render the locations-results template with the ordered queryset
+              $('#results').html(json['html_from_view']);
+          } else {
+              alert('Error: ' + json.error);
+          }
+        })
+        // Code to run if the request fails; the raw request and
+        // status codes are passed to the function
+        .fail(function( xhr, status, errorThrown ) {
+        })
+        // Code to run regardless of success or failure;
+        .always(function( xhr, status ) {
+        });
+     });
+
 
 }); // End of ready function
 

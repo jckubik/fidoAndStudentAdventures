@@ -1,0 +1,23 @@
+{% extends "adventures/base.html" %}
+{% load static %}
+
+{% block page-title %}Help{% endblock %}
+
+<!-- Main content of page -->
+{% block content %}
+
+    <!-- Div to hold help info -->
+    <div>
+        {% if request.session.username %}
+            <p>Create an adventure here: <a href="{% url 'adventures:adventure_creator' %}">Adventure Creator</a></p>
+
+            <p>Access your profile here: <a href="{% url 'users:profile' request.session.username %}">My Profile</a></p>
+
+            <p>Search through trips here: <a href="{% url 'adventures:adventure_trip_list' %}">List of Trips</a></p>
+        {% else %}
+            <p>Create an account here: <a href="{% url 'users:register' %}">Create Account</a></p>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

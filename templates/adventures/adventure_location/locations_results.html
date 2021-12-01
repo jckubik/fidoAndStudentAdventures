@@ -7,7 +7,7 @@
         <div class="location-label">
           <h4><a href="{% url 'adventures:adventure_location_detail' location.id %}"
           >{{ location.name }}</a></h4>
-          <p>{{ location.description }}</p>
+          <p>{{ location.summary }}</p>
           <p>Rating: {{ location.rating }}/5</p>
           <p>{{ location.num_reviews }} - <a href="#">Reviews</a></p>
           <div>

@@ -19,6 +19,8 @@ class AdventureLocation(models.Model):
     img = models.CharField(max_length=100, default='')
     alt = models.CharField(max_length=100)
     date = models.DateTimeField(default=datetime.now)
+    summary = models.TextField(default='')
+
 
     def __str__(self):
         return self.name
@@ -37,13 +39,13 @@ class Review(models.Model):
         return self.author
 
 class AdventureTrip(models.Model):
+    adventureLocation = models.ForeignKey(AdventureLocation, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField()
     author = models.CharField(max_length=30)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.now)
-    img = models.CharField(max_length=100, default='')
-    alt = models.CharField(max_length=100)
+    summary = models.TextField(default='')
 
     def __str__(self):
         return self.name

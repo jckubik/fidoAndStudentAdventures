@@ -56,37 +56,14 @@
 
             <div id="location-supporting-description">
 
-              <!-- Features -->
-              <div id="location-features">
-                <h3>Features</h3>
-
-                <div>
-                  <img src="{% static "media/drop.svg" %}" class="featureIcon" alt=""> <!-- icon, water drop href="https://www.flaticon.com/authors/vectors-market"  -->
-                  <p>Water Source</p>
-                </div>
-
-                <div>
-                  <img src="{% static "media/poop-bag.svg" %}" class="featureIcon" alt=""> <!-- icon, bag href="https://www.freepik.com" -->
-                  <p>Poop Bags</p>
-                </div>
-
-                <div>
-                  <img src="{% static "media/leash.svg" %}" class="featureIcon" alt=""> <!-- icon, leash  href="https://www.freepik.com"-->
-                  <p>Off Leash</p>
-                </div>
-
-                <div>
-                  <img src="{% static "media/dog.svg" %}" class="featureIcon" alt=""> <!-- icon, dog href="https://www.freepik.com"-->
-                  <p>All Dogs</p>
-                </div>
-
-              </div> <!-- End location-features div-->
-
             <!-- Display only if user logged in -->
             {% if request.session.username %}
               <!-- Upcoming Trips -->
               <div id="location-upcoming-trips">
-                <h3>Upcoming Trips</h3>
+                <div id="tripTitleDiv">
+                    <h3>Upcoming Trips</h3>
+                    <p><a href="{% url 'adventures:trip_creator' location.id %}">Add Trip</a></p>
+                </div>
 
                   {% for trip in adventure_trips %}
                       {% if forloop.counter < 3 %}
@@ -95,7 +72,7 @@
                       <div>
                         <h4>{{ trip.name }}</h4>
                         <p>Organizer - <a href="{% url 'users:profile' trip.user.username %}">{{ trip.user.username }}</a></p>
-                        <p>Date: {{ trip.date }}</p>
+                        <p>Date: {{ trip.date|date:'m/d/Y' }}</p>
                       </div>
 
                       <div>
@@ -104,9 +81,17 @@
                     </article>
                       {% endif %}
 
+                      {% empty %}
+                        <!-- Show empty message if not -->
+                        <div id="empty-DB-notice-div">
+                            <p id="empty-DB-notice">
+                                Looks like there aren't any trips planned yet.
+                            </p>
+                        </div>
+
                   {% endfor %}
 
-                <button type="button">More Trips</button>
+                <a href="{% url 'adventures:adventure_trip_list' %}">More Trips</a>
 
               </div> <!-- End location-upcoming-trips div-->
             {% endif %}

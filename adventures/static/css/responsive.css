@@ -262,7 +262,7 @@ nav li a {
   grid-template-rows: 1fr 1fr;
 }
 
-/* Adventure Creator page */
+/*  Creator page */
 
 #main-items-div {
   display: grid;
@@ -309,6 +309,12 @@ ul.messages li.warning, li.error {
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   max-width: 10%;
+}
+
+#tripTitleDiv {
+  display: flex;
+  align-items: center;
+  gap: 5%;
 }
 
 /* Logged out Home Page */
@@ -388,6 +394,13 @@ ul.messages li.warning, li.error {
 
 #activity-feed-list li {
   margin: .5em;
+}
+
+/* ---------- About / Contact ---------- */
+
+#aboutDiv, #contactDiv {
+  width: 50%;
+  margin: 1em;
 }
 
 /* ----------------------------- Begin Media Query  ------------------------ */
@@ -551,6 +564,7 @@ ul.messages li.warning, li.error {
     clear: none;
     float: left;
     width: 50%;
+    margin: 0 0 2em 0;
   }
 
   #location-reviews {
@@ -576,14 +590,10 @@ ul.messages li.warning, li.error {
     margin: 0;
   }
 
-  .reviewContainer > p {
-    width: 70%;
-  }
-
   .reviewContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 20%;
+    width: 100%;
   }
 
   #location-comment input {
