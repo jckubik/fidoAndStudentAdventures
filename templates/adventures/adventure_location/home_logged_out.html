@@ -26,7 +26,8 @@
 
                     <div>
                       <div class="location-label">
-                        <h4>{{ location.name }}</h4>
+                        <h4><a href="{% url 'adventures:adventure_location_detail' location.id %}"
+          >{{ location.name }}</a></h4>
                         <p>Rating: {{ location.rating }}/5</p>
                       </div>
                     </div>
