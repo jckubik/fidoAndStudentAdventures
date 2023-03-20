@@ -76,7 +76,7 @@ def adventure_trip_list(request):
             return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
 
 
-    return render(request, 'adventures/adventure_location/listTrips.html', {'adventure_trips': adventure_trips})
+    return render(request, 'adventures/adventure_location/list_trips.html', {'adventure_trips': adventure_trips})
 
 
 # View for detail view
@@ -328,7 +328,7 @@ def trip_creator(request, location_id):
     else:
         # show the form
         return render(request,
-                      'adventures/adventure_location/creatorTrips.html',
+                      'adventures/adventure_location/creator_trips.html',
                       {'location': location},
                       )
 
